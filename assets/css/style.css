@@ -2,7 +2,7 @@
 
 /*! modern-normalize v1.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Yanone+Kaffeesatz:wght@300&family=Zen+Kurenaido&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans&family=Yanone+Kaffeesatz:wght@300&family=Zen+Kurenaido&display=swap");
 
 :root {
   -moz-tab-size: 4;
@@ -21,15 +21,13 @@ body {
     sans-serif, Apple Color Emoji, Segoe UI Emoji;
 }
 
-
 .nicefont {
-    font-family: 'Yanone Kaffeesatz', sans-serif;
-   
+  font-family: "Yanone Kaffeesatz", sans-serif;
 }
-.sub{
-    font-size: 16px!important;
-    letter-spacing: 1px!important;
-    font-weight: 600!important;
+.sub {
+  font-size: 16px !important;
+  letter-spacing: 1px !important;
+  font-weight: 600 !important;
 }
 
 .spacing2 {
@@ -1224,5 +1222,13 @@ iframe {
   }
   .md\:col-start-5 {
     grid-column-start: 5;
+  }
+}
+
+@media (max-width: 378px) {
+  body {
+    margin-left: -10px;
+    margin-top: -40px;
+    margin-bottom: -50px;
   }
 }
