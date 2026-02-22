@@ -82,10 +82,13 @@
   /* ─── TITLE BAR ─── */
   .title-bar {
     background: var(--bg2); border: 1px solid var(--border); border-bottom: none;
-    border-radius: 10px 10px 0 0; padding: 12px 16px;
+    border-radius: 10px 10px 0 0;
+    padding: 12px 16px;
+    padding-top: max(12px, env(safe-area-inset-top));
     display: flex; align-items: center; gap: 8px;
-    position: sticky; top: env(safe-area-inset-top); z-index: 100;
+    position: sticky; top: 0; z-index: 100;
     transition: background 0.3s, border-color 0.3s;
+    box-shadow: 0 4px 12px var(--bg);
   }
   .dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
   .dot-red { background: #ff5f57; }
