@@ -1,505 +1,598 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roshan PJ | Curious Software Engineer</title>
-    <meta name="description"
-        content="Roshan Parajuli - Software Engineer and Blockchain Developer building in ICON/Polygon blockchain. Research and Web 3.0 products.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>roshan@portfolio:~$</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  /* ─── DARK THEME ─── */
+  [data-theme="dark"] {
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --bg3: #1c2333;
+    --green: #39d353;
+    --green-dim: #1a7a2e;
+    --cyan: #58a6ff;
+    --yellow: #e3b341;
+    --magenta: #bc8cff;
+    --white: #e6edf3;
+    --gray: #8b949e;
+    --border: #30363d;
+    --scanline: rgba(0,0,0,0.05);
+    --vignette: rgba(0,0,0,0.5);
+  }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #ffffff;
-            color: #000000;
-            line-height: 1.6;
-            font-size: 16px;
-        }
+  /* ─── LIGHT THEME ─── */
+  [data-theme="light"] {
+    --bg: #f6f8fa;
+    --bg2: #ffffff;
+    --bg3: #eaeef2;
+    --green: #1a7f37;
+    --green-dim: #2da44e;
+    --cyan: #0969da;
+    --yellow: #9a6700;
+    --magenta: #8250df;
+    --white: #1f2328;
+    --gray: #656d76;
+    --border: #d0d7de;
+    --scanline: rgba(0,0,0,0.015);
+    --vignette: rgba(0,0,0,0.08);
+  }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
 
-        /* Navigation */
-        nav {
-            border-bottom: 1px solid #e0e0e0;
-            padding: 2rem 0;
-            margin-bottom: 4rem;
-        }
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background 0.3s, color 0.3s;
+  }
 
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+  body::before {
+    content: '';
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, var(--scanline) 2px, var(--scanline) 4px);
+    pointer-events: none; z-index: 9999;
+  }
 
-        .logo {
-            font-size: 1.25rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-        }
+  body::after {
+    content: '';
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at center, transparent 60%, var(--vignette) 100%);
+    pointer-events: none; z-index: 9998;
+  }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
+  .terminal-window {
+    max-width: 920px; margin: 30px auto; padding: 0 20px 60px;
+    animation: fadeIn 0.5s ease;
+  }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
 
-        .nav-links a {
-            color: #666;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s ease;
-        }
+  /* ─── TITLE BAR ─── */
+  .title-bar {
+    background: var(--bg2); border: 1px solid var(--border); border-bottom: none;
+    border-radius: 10px 10px 0 0; padding: 12px 16px;
+    display: flex; align-items: center; gap: 8px;
+    position: sticky; top: 0; z-index: 100;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .dot-red { background: #ff5f57; }
+  .dot-yellow { background: #febc2e; }
+  .dot-green { background: #28c840; }
+  .title-text { flex: 1; text-align: center; color: var(--gray); font-size: 12px; letter-spacing: 0.05em; }
 
-        .nav-links a:hover {
-            color: #000;
-        }
+  /* ─── THEME TOGGLE ─── */
+  .theme-toggle {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: 20px;
+    padding: 4px 10px; cursor: pointer; font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--gray); display: flex; align-items: center; gap: 5px;
+    transition: all 0.2s; flex-shrink: 0;
+  }
+  .theme-toggle:hover { color: var(--green); border-color: var(--green); }
+  .theme-icon { font-size: 13px; transition: transform 0.4s; }
+  .theme-toggle:hover .theme-icon { transform: rotate(20deg); }
 
-        /* Typography */
-        h1 {
-            font-size: 3rem;
-            font-weight: 600;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-        }
+  /* ─── NAV BAR ─── */
+  .nav-bar {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-bottom: 2px solid var(--green-dim); padding: 8px 16px;
+    display: flex; flex-wrap: wrap; gap: 0;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .nav-bar a {
+    color: var(--gray); text-decoration: none; padding: 4px 16px;
+    font-size: 12px; transition: color 0.2s; border-right: 1px solid var(--border);
+  }
+  .nav-bar a:first-child { border-left: 1px solid var(--border); }
+  .nav-bar a:hover { color: var(--green); }
+  .nav-bar a::before { content: '~/'; color: var(--green-dim); }
 
-        h2 {
-            font-size: 2rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            margin-bottom: 2rem;
-        }
+  /* ─── TERMINAL BODY ─── */
+  .terminal-body {
+    background: var(--bg); border: 1px solid var(--border); border-top: none;
+    border-radius: 0 0 10px 10px; padding: 30px; min-height: 80vh;
+    transition: background 0.3s, border-color 0.3s;
+  }
 
-        h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
+  /* ─── PROMPT ─── */
+  .cmd {
+    display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 16px; margin-top: 40px;
+  }
+  .cmd:first-child { margin-top: 0; }
+  .prompt-user { color: var(--green); font-weight: 700; }
+  .prompt-at { color: var(--gray); }
+  .prompt-host { color: var(--cyan); font-weight: 700; }
+  .prompt-path { color: var(--magenta); }
+  .prompt-dollar { color: var(--white); }
+  .prompt-cmd { color: var(--yellow); }
 
-        p {
-            color: #333;
-            margin-bottom: 1rem;
-        }
+  /* ─── OUTPUT ─── */
+  .output {
+    padding: 16px 0 16px 20px; border-left: 2px solid var(--border);
+    margin-bottom: 8px; transition: border-color 0.3s;
+  }
 
-        a {
-            color: #000;
-            text-decoration: none;
-            transition: opacity 0.2s ease;
-        }
+  /* ─── ASCII ART ─── */
+  .ascii-art {
+    color: var(--green); font-size: 11px; line-height: 1.2; white-space: pre;
+    opacity: 0; animation: typeIn 0.3s ease 0.3s forwards;
+    font-family: 'Share Tech Mono', monospace;
+  }
+  @keyframes typeIn { to { opacity: 1; } }
 
-        a:hover {
-            opacity: 0.6;
-        }
+  .hero-info {
+    margin-top: 24px; display: grid; grid-template-columns: auto 1fr; gap: 4px 16px;
+  }
+  .info-key { color: var(--cyan); white-space: nowrap; }
+  .info-val { color: var(--white); }
+  .info-val a { color: var(--green); text-decoration: none; }
+  .info-val a:hover { text-decoration: underline; }
 
-        /* Sections */
-        section {
-            margin-bottom: 6rem;
-        }
+  /* ─── CURSOR ─── */
+  .cursor {
+    display: inline-block; width: 8px; height: 15px; background: var(--green);
+    animation: blink 1s step-end infinite; vertical-align: middle; margin-left: 2px;
+  }
+  @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
 
-        /* Hero */
-        .hero {
-            padding: 4rem 0 6rem;
-        }
+  .about-text { color: var(--white); line-height: 1.8; max-width: 700px; }
+  .highlight { color: var(--yellow); }
+  .tag { color: var(--green); }
+  .string { color: var(--magenta); }
+  .comment { color: var(--gray); font-style: italic; }
 
-        .hero h4 {
-            font-size: 0.9rem;
-            font-weight: 400;
-            color: #666;
-            margin-bottom: 0.5rem;
-        }
+  /* ─── SKILLS ─── */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 10px; margin-top: 8px;
+  }
+  .skill-card {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 6px;
+    padding: 12px 14px; transition: border-color 0.2s, transform 0.2s, background 0.3s;
+    cursor: default; display: flex; align-items: flex-start; gap: 10px;
+  }
+  .skill-card:hover { border-color: var(--green); transform: translateX(4px); }
+  .skill-bullet { color: var(--green); margin-top: 2px; flex-shrink: 0; }
+  .skill-name { color: var(--cyan); font-weight: 700; font-size: 13px; }
+  .skill-desc { color: var(--gray); font-size: 11px; margin-top: 2px; }
 
-        .hero h2 {
-            font-size: 1.5rem;
-            font-weight: 400;
-            color: #666;
-            margin-bottom: 1.5rem;
-        }
+  /* ─── EXPERIENCE ─── */
+  .exp-list { display: flex; flex-direction: column; gap: 20px; margin-top: 8px; }
+  .exp-company {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px; transition: border-color 0.2s, background 0.3s;
+  }
+  .exp-company:hover { border-color: var(--cyan); }
+  .exp-company-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
+    padding-bottom: 10px; border-bottom: 1px dashed var(--border);
+  }
+  .exp-company-icon {
+    width: 38px; height: 38px; background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 6px; display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: var(--cyan); flex-shrink: 0; letter-spacing: -0.5px;
+  }
+  .exp-company-name { color: var(--cyan); font-weight: 700; font-size: 14px; }
+  .exp-company-total { color: var(--gray); font-size: 11px; margin-top: 2px; }
+  .exp-roles { display: flex; flex-direction: column; gap: 10px; }
+  .exp-role { display: grid; grid-template-columns: 10px 1fr; gap: 0 12px; align-items: start; }
+  .exp-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--bg);
+    border: 2px solid var(--green); margin-top: 5px; flex-shrink: 0;
+  }
+  .exp-role-title { color: var(--white); font-weight: 700; font-size: 13px; }
+  .exp-role-meta { color: var(--gray); font-size: 11px; margin-top: 1px; }
+  .exp-role-type { color: var(--green-dim); }
+  .exp-role-desc { margin-top: 5px; color: var(--white); font-size: 12px; }
 
-        .hero p {
-            max-width: 600px;
-            margin-bottom: 2rem;
-        }
+  /* ─── EDUCATION ─── */
+  .edu-list { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+  .edu-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-left: 3px solid var(--magenta); border-radius: 0 6px 6px 0;
+    padding: 14px 16px; transition: border-color 0.2s, background 0.3s;
+  }
+  .edu-card:hover { border-left-color: var(--cyan); }
+  .edu-degree { color: var(--white); font-weight: 700; font-size: 13px; }
+  .edu-school { color: var(--cyan); font-size: 13px; margin-top: 3px; }
+  .edu-meta { color: var(--gray); font-size: 11px; margin-top: 4px; }
+  .edu-badge {
+    display: inline-block; background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 4px; padding: 2px 8px; font-size: 10px; color: var(--yellow); margin-top: 8px;
+  }
 
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
+  /* ─── CONTACT ─── */
+  .contact-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px; margin-top: 8px;
+  }
+  .contact-item {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 6px;
+    padding: 14px; display: flex; align-items: center; gap: 12px;
+    text-decoration: none; color: var(--white);
+    transition: border-color 0.2s, background 0.3s;
+  }
+  .contact-item:hover { border-color: var(--green); background: var(--bg3); }
+  .contact-icon { color: var(--green); font-size: 16px; width: 24px; text-align: center; }
+  .contact-label { color: var(--gray); font-size: 11px; }
+  .contact-value { color: var(--cyan); font-size: 12px; }
 
-        .hero-content-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-        }
+  /* ─── SYS INFO ─── */
+  .sys-info {
+    display: flex; gap: 20px; flex-wrap: wrap; padding: 10px 16px;
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 6px;
+    margin-bottom: 20px; font-size: 12px;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .sys-item { display: flex; gap: 6px; }
+  .sys-key { color: var(--gray); }
+  .sys-val { color: var(--green); }
 
-        .hero-text {
-            flex: 1;
-        }
+  hr.divider {
+    border: none; border-top: 1px dashed var(--border); margin: 30px 0;
+    transition: border-color 0.3s;
+  }
 
-        .profile-image {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #000;
-        }
+  .footer-cmd {
+    margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border);
+    color: var(--gray); font-size: 12px; transition: border-color 0.3s;
+  }
 
-        .btn {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            border: 1px solid #000;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
-
-        .btn:hover {
-            background: #000;
-            color: #fff;
-            opacity: 1;
-        }
-
-        /* About */
-        .about-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 4rem;
-        }
-
-        .info-list {
-            list-style: none;
-            font-size: 0.9rem;
-        }
-
-        .info-list li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #f0f0f0;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .info-list li:last-child {
-            border-bottom: none;
-        }
-
-        .info-list strong {
-            font-weight: 500;
-        }
-
-        .hobbies-section h3 {
-            margin-bottom: 1rem;
-        }
-
-        .hobbies-list {
-            list-style: none;
-            font-size: 0.9rem;
-        }
-
-        .hobbies-list li {
-            padding: 0.25rem 0;
-            color: #666;
-        }
-
-        /* Skills */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
-
-        .skill-item {
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .skill-item h3 {
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .skill-item p {
-            font-size: 0.9rem;
-            color: #666;
-            margin: 0;
-        }
-
-        /* Projects */
-        .projects-grid {
-            display: grid;
-            gap: 2rem;
-        }
-
-        .project-item {
-            padding-bottom: 2rem;
-            border-bottom: 1px solid #f0f0f0;
-            transition: opacity 0.2s ease;
-        }
-
-        .project-item:hover {
-            opacity: 0.7;
-        }
-
-        .project-item:last-child {
-            border-bottom: none;
-        }
-
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 0.5rem;
-        }
-
-        .project-tag {
-            font-size: 0.8rem;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .project-title {
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-
-        .project-desc {
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        .project-link {
-            font-size: 0.85rem;
-            text-decoration: underline;
-        }
-
-        /* Social */
-        .social-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
-
-        .social-item {
-            padding: 2rem;
-            border: 1px solid #e0e0e0;
-            transition: border-color 0.2s ease;
-        }
-
-        .social-item:hover {
-            border-color: #000;
-        }
-
-        .social-item h3 {
-            margin-bottom: 0.75rem;
-        }
-
-        .social-item p {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 1.5rem;
-        }
-
-        /* Contact */
-        .contact-section {
-            text-align: center;
-            padding: 4rem 0;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .contact-info {
-            margin-top: 2rem;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .contact-link {
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        .contact-link:hover {
-            color: #000;
-        }
-
-        .hire-btn {
-            margin-top: 2rem;
-        }
-
-        /* Mobile */
-        @media screen and (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            .about-content,
-            .skills-grid,
-            .social-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .nav-links {
-                gap: 1rem;
-            }
-
-            .nav-links a {
-                font-size: 0.8rem;
-            }
-
-            .hero-content-wrapper {
-                flex-direction: column-reverse;
-                text-align: center;
-            }
-
-            .profile-image {
-                width: 150px;
-                height: 150px;
-            }
-        }
-    </style>
+  @media (max-width: 640px) {
+    .terminal-window { margin: 0; padding: 0 0 40px; }
+    .terminal-body { padding: 16px; }
+    .ascii-art { font-size: 7px; }
+    .skills-grid, .contact-grid { grid-template-columns: 1fr; }
+    .hero-info { grid-template-columns: 1fr; }
+    .title-text { display: none; }
+  }
+</style>
 </head>
-
 <body>
-    <nav>
-        <div class="container nav-content">
-            <div class="logo">Roshan PJ</div>
-            <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#skills">Skills</a>
-                <a href="#contact">Contact</a>
+
+<div class="terminal-window">
+
+  <!-- Title Bar -->
+  <div class="title-bar">
+    <div class="dot dot-red"></div>
+    <div class="dot dot-yellow"></div>
+    <div class="dot dot-green"></div>
+    <div class="title-text">roshan@portfolio: ~ — bash — 920×600</div>
+    <button class="theme-toggle" onclick="toggleTheme()">
+      <!-- <span class="theme-icon" id="themeIcon">🌙</span> -->
+      <span id="themeLabel">Switch theme</span>
+    </button>
+  </div>
+
+  <!-- Terminal Body -->
+  <div class="terminal-body">
+
+    <!-- System Info -->
+    <!-- <div class="sys-info">
+      <div class="sys-item"><span class="sys-key">HOME:</span><span class="sys-val">Nepal/Kathmandu</span></div>
+      <div class="sys-item"><span class="sys-key">AVAILABILITY:</span><span class="sys-val">GMT+5:45 (Flexible)</span></div>
+      <div class="sys-item"><span class="sys-key">STATUS:</span><span class="sys-val">open to opportunities</span></div>
+      <div class="sys-item"><span class="sys-key">UPTIME:</span><span class="sys-val">∞</span></div>
+    </div> -->
+
+    <!-- HERO -->
+    <div class="cmd">
+      <span class="prompt-user">roshan</span><span class="prompt-at">@</span><span class="prompt-host">portfolio</span><span class="prompt-at">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$</span>
+      <span class="prompt-cmd">whoami</span>
+    </div>
+
+    <div class="output">
+<pre class="ascii-art">
+<!-- ██████╗  ██████╗ ███████╗██╗  ██╗ █████╗ ███╗   ██╗
+██╔══██╗██╔═══██╗██╔════╝██║  ██║██╔══██╗████╗  ██║
+██████╔╝██║   ██║███████╗███████║███████║██╔██╗ ██║
+██╔══██╗██║   ██║╚════██║██╔══██║██╔══██║██║╚██╗██║
+██║  ██║╚██████╔╝███████║██║  ██║██║  ██║██║ ╚████║
+╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝ -->
+__________             .__                    __________ ____.
+\______   \ ____  _____|  |__ _____    ____   \______   \    |
+ |       _//    \/  ___/  |  \\__  \  /    \   |     ___/    |
+ |    |   (      )___ \|   Y  \/ __ \|   |  \  |    /\__|    |
+ |____|_  /\____/____  >___|  (____  /___|  /  |____\________|
+        \/           \/     \/     \/     \/                  
+</pre>
+      <div class="hero-main" style="display: flex">
+      <div class="hero-info">
+        <span class="info-key">name:</span>    <span class="info-val">Roshan Parajuli</span>
+        <span class="info-key">alias:</span>   <span class="info-val">0xrpj</span>
+        <span class="info-key">role:</span>    <span class="info-val">System Architect · Web3 Engineer · Full Stack Developer</span>
+        <span class="info-key">stack:</span>   <span class="info-val">MERN · Go · Solidity · Web3 · AI</span>
+        <span class="info-key">mission:</span> <span class="info-val">I am looking for something that excites me.
+          <!-- <span class="cursor"></span> -->
+        </span>
+        <span class="info-key">links:</span>   <span class="info-val">
+          <a href="https://wa.me/9779864022333">WhatsApp</a> ·
+          <a href="https://www.linkedin.com/in/rsnpj">LinkedIn</a> ·
+          <a href="mailto:roshan.parajuly1@gmail.com">Email</a>
+        </span>
+      </div>
+
+    </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ABOUT -->
+    <div id="about" class="cmd">
+      <span class="prompt-user">roshan</span><span class="prompt-at">@</span><span class="prompt-host">portfolio</span><span class="prompt-at">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$</span>
+      <span class="prompt-cmd">cat about.txt</span>
+    </div>
+
+    <div class="output">
+      <div class="about-text">
+        <span class="comment">/* Multi-dimensional engineer, builder, and lifelong learner. */</span><br><br>
+        I am a <span class="highlight">learner more than anything</span>. I have shaped myself in different roles including
+        <span class="tag">Full-stack developer</span>, <span class="tag">Blockchain developer</span>,
+        <span class="tag">Cloud engineer</span>, <span class="tag">AI developer</span>,
+        and <span class="string">Project Manager</span>.
+        I love to learn and keep a multi-dimensional approach while doing so.
+        I am enthusiastic about <span class="highlight">research and innovation</span>.<br><br>
+        <span class="comment">// Location data</span><br>
+        <span class="tag">residence</span>  = <span class="string">"Nepal"</span>;<br>
+        <span class="tag">city</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= <span class="string">"Kathmandu"</span>;<br>
+        <span class="tag">available</span>  = <span class="string">"GMT +5:45 ~ Flexible"</span>;<br>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- SKILLS -->
+    <div id="skills" class="cmd">
+      <span class="prompt-user">roshan</span><span class="prompt-at">@</span><span class="prompt-host">portfolio</span><span class="prompt-at">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$</span>
+      <span class="prompt-cmd">ls -la skills/</span>
+    </div>
+
+    <div class="output">
+      <div class="skills-grid">
+        <div class="skill-card"><span class="skill-bullet">▸</span><div><div class="skill-name">MERN Stack</div><div class="skill-desc">Full-stack web development, React, Node, MongoDB</div></div></div>
+        <div class="skill-card"><span class="skill-bullet">▸</span><div><div class="skill-name">Web3</div><div class="skill-desc">Web3 Integration, blockchain protocols</div></div></div>
+        <div class="skill-card"><span class="skill-bullet">▸</span><div><div class="skill-name">Solidity</div><div class="skill-desc">Smart contract development on EVM chains</div></div></div>
+        <div class="skill-card"><span class="skill-bullet">▸</span><div><div class="skill-name">Project Management</div><div class="skill-desc">Leading teams, planning, delivery</div></div></div>
+        <div class="skill-card"><span class="skill-bullet">▸</span><div><div class="skill-name">Artificial Intelligence</div><div class="skill-desc">AI/ML development, data analysis</div></div></div>
+        <div class="skill-card"><span class="skill-bullet">▸</span><div><div class="skill-name">Cloud &amp; DevOps</div><div class="skill-desc">Cloud infrastructure, CI/CD, automation</div></div></div>
+        <div class="skill-card"><span class="skill-bullet">▸</span><div><div class="skill-name">Go (Golang)</div><div class="skill-desc">Backend systems and services</div></div></div>
+        <div class="skill-card"><span class="skill-bullet">▸</span><div><div class="skill-name">Exploration</div><div class="skill-desc">Not bound to anything. Always learning.</div></div></div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- EXPERIENCE -->
+    <div id="experience" class="cmd">
+      <span class="prompt-user">roshan</span><span class="prompt-at">@</span><span class="prompt-host">portfolio</span><span class="prompt-at">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$</span>
+      <span class="prompt-cmd">cat experience.json | jq .</span>
+    </div>
+
+    <div class="output">
+      <div class="exp-list">
+
+        <!-- Venture23 -->
+        <div class="exp-company">
+          <div class="exp-company-header">
+            <div class="exp-company-icon">V23</div>
+            <div>
+              <div class="exp-company-name">Venture23 Inc.</div>
+              <div class="exp-company-total">4 yrs 3 mos</div>
             </div>
+          </div>
+          <div class="exp-roles">
+            <div class="exp-role"><div class="exp-dot"></div><div>
+              <div class="exp-role-title">System Architect, Vibe Coder</div>
+              <div class="exp-role-meta"><span class="exp-role-type">Full-time</span> · Sep 2025 – Present · 6 mos</div>
+            </div></div>
+            <div class="exp-role"><div class="exp-dot"></div><div>
+              <div class="exp-role-title">AI R&amp;D</div>
+              <div class="exp-role-meta"><span class="exp-role-type">Full-time</span> · Jul 2025 – Sep 2025 · 3 mos</div>
+            </div></div>
+            <div class="exp-role"><div class="exp-dot"></div><div>
+              <div class="exp-role-title">Web3 Game Development Project Manager</div>
+              <div class="exp-role-meta"><span class="exp-role-type">Full-time</span> · Jul 2024 – Jun 2025 · 1 yr</div>
+            </div></div>
+            <div class="exp-role"><div class="exp-dot"></div><div>
+              <div class="exp-role-title">Smart Contract Engineer</div>
+              <div class="exp-role-meta"><span class="exp-role-type">Full-time</span> · Jan 2024 – Jun 2024 · 6 mos</div>
+            </div></div>
+            <div class="exp-role"><div class="exp-dot"></div><div>
+              <div class="exp-role-title">Full Stack Lead</div>
+              <div class="exp-role-meta"><span class="exp-role-type">Full-time</span> · Apr 2023 – Dec 2023 · 9 mos</div>
+            </div></div>
+            <div class="exp-role"><div class="exp-dot"></div><div>
+              <div class="exp-role-title">Full Stack Developer</div>
+              <div class="exp-role-meta"><span class="exp-role-type">Full-time</span> · Apr 2022 – Mar 2023 · 1 yr</div>
+            </div></div>
+            <div class="exp-role"><div class="exp-dot"></div><div>
+              <div class="exp-role-title">Backend Developer</div>
+              <div class="exp-role-meta"><span class="exp-role-type">Part-time · Remote</span> · Dec 2021 – Mar 2022 · 4 mos</div>
+            </div></div>
+          </div>
         </div>
-    </nav>
 
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content-wrapper">
-                <div class="hero-text">
-                    <h4>Hello! I'm</h4>
-                    <h1>Roshan Parajuli</h1>
-                    <p>I am looking for something that excites me.</p>
-                    <div class="hero-buttons">
-                        <a href="https://wa.me/9779864022333" target="_blank" class="btn">WhatsApp</a>
-                        <a href="https://www.linkedin.com/in/rsnpj" target="_blank" class="btn">LinkedIn</a>
-                        <a href="https://instagram.com/rroshanparajuli" target="_blank" class="btn">Instagram</a>
-                    </div>
-                </div>
-                <img src="https://raw.githubusercontent.com/0xrpj/rsnpj.github.io/refs/heads/main/assets/me2.jpg" alt="Roshan Parajuli" class="profile-image">
+        <!-- Fusemachines -->
+        <div class="exp-company">
+          <div class="exp-company-header">
+            <div class="exp-company-icon">FM</div>
+            <div>
+              <div class="exp-company-name">Fusemachines</div>
+              <div class="exp-company-total">Artificial Intelligence · Part-time</div>
             </div>
+          </div>
+          <div class="exp-roles">
+            <div class="exp-role"><div class="exp-dot"></div><div>
+              <div class="exp-role-title">Artificial Intelligence Fellow Scholar</div>
+              <div class="exp-role-meta"><span class="exp-role-type">Part-time · Nepal</span> · Mar 2022 – Jun 2022 · 4 mos</div>
+              <div class="exp-role-desc">Received full scholarship on pursuing AI Fellowship 2022.</div>
+            </div></div>
+          </div>
         </div>
-    </section>
 
-    <section id="about">
-        <div class="container">
-            <h2>About Me</h2>
-            <div class="about-content">
-                <div style="max-width: 600px;">
-                    <p>I'm a full-stack MERN developer who's also dabbled in Go and smart contracts. I thrive on
-                        challenges
-                        and love building. I'm also a HUGE nerd (in a good way).</p>
-
-                    <ul class="info-list">
-                        <li><strong>Residence</strong> <span>Nepal</span></li>
-                        <li><strong>Availability</strong> <span>5AM - 12AM (GMT +5:45)</span></li>
-                        <li><strong>Address</strong> <span>Kathmandu, Nepal</span></li>
-                    </ul>
-                </div>
+        <!-- AI Learners Community -->
+        <div class="exp-company">
+          <div class="exp-company-header">
+            <div class="exp-company-icon">ALC</div>
+            <div>
+              <div class="exp-company-name">AI Learners Community</div>
+              <div class="exp-company-total">Community Leadership</div>
             </div>
+          </div>
+          <div class="exp-roles">
+            <div class="exp-role"><div class="exp-dot"></div><div>
+              <div class="exp-role-title">Leader</div>
+              <div class="exp-role-meta"><span class="exp-role-type">Full-time · Kathmandu</span> · May 2021 – Oct 2021 · 6 mos</div>
+              <div class="exp-role-desc">Organizing and participating in several AI-related events with proper collaboration and planning among team members.</div>
+            </div></div>
+          </div>
         </div>
-    </section>
 
-    <section id="story" style="background: #f9f9f9; padding: 4rem 0;">
-        <div class="container">
-            <h2>A Little Story</h2>
-            <div style="max-width: 600px;">
-                <p>When I was a kid, I used to urge my parents to buy me toys. When they did, I'd break them
-                    apart - hunting for magnets and figuring out how the toy worked. That habit is still within me. I
-                    love
-                    to
-                    look deeply into things to see how they work, and break them ;)</p>
+        <!-- ING Skill Academy -->
+        <div class="exp-company">
+          <div class="exp-company-header">
+            <div class="exp-company-icon">ING</div>
+            <div>
+              <div class="exp-company-name">ING Skill Academy</div>
+              <div class="exp-company-total">Event Management</div>
             </div>
+          </div>
+          <div class="exp-roles">
+            <div class="exp-role"><div class="exp-dot"></div><div>
+              <div class="exp-role-title">Lead Event Organizer</div>
+              <div class="exp-role-meta"><span class="exp-role-type">Full-time · Kathmandu</span> · Jul 2021 – Aug 2021 · 2 mos</div>
+              <div class="exp-role-desc">Built up industrial skills by organising a very successful awareness event on imposter syndrome.</div>
+            </div></div>
+          </div>
         </div>
-    </section>
 
-    <section id="skills">
-        <div class="container">
-            <h2>Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-item">
-                    <h3>Web Development</h3>
-                    <p>Full-stack development, modern frameworks</p>
-                </div>
-                <div class="skill-item">
-                    <h3>Mobile Development</h3>
-                    <p>Cross-platform applications</p>
-                </div>
-                <div class="skill-item">
-                    <h3>Smart Contract Development</h3>
-                    <p>Solidity, blockchain protocols</p>
-                </div>
-                <div class="skill-item">
-                    <h3>Cloud Computing</h3>
-                    <p>Cloud infrastructure and services</p>
-                </div>
-                <div class="skill-item">
-                    <h3>DevOps</h3>
-                    <p>CI/CD, automation, deployment</p>
-                </div>
-                <div class="skill-item">
-                    <h3>Exploration</h3>
-                    <p>Not bound to anything, willing to explore</p>
-                </div>
-            </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- EDUCATION -->
+    <div id="education" class="cmd">
+      <span class="prompt-user">roshan</span><span class="prompt-at">@</span><span class="prompt-host">portfolio</span><span class="prompt-at">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$</span>
+      <span class="prompt-cmd">cat education.log</span>
+    </div>
+
+    <div class="output">
+      <div class="edu-list">
+
+        <div class="edu-card">
+          <div class="edu-degree">Master of Business Administration (MBA)</div>
+          <div class="edu-school">Techspire college ~ affiliated with Asia Pacific University of Technology & Innovation (APU), Malaysia </div>
+          <div class="edu-meta">Business Administration &amp; Management</div>
+          <span class="edu-badge">✓ COMPLETED</span>
         </div>
-    </section>
 
-
-
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2>Get in Touch</h2>
-            <p>I'm always open to discussing new projects, creative ideas, or opportunities.</p>
-
-            <div class="contact-info">
-                <a href="mailto:roshan.parajuly1@gmail.com" class="contact-link">roshan.parajuly1@gmail.com</a>
-                <a href="tel:+9779864022333" class="contact-link">+977-9864022333</a>
-                <a href="https://www.linkedin.com/in/rsnpj" target="_blank" class="contact-link">LinkedIn</a>
-            </div>
-            <div class="hire-btn">
-                From the 80s? &nbsp;<a href="mailto:roshanparajuly1@gmail.com" class="btn">Email me</a>
-            </div>
+        <div class="edu-card">
+          <div class="edu-degree">Bsc. (Hons) Computer Science</div>
+          <div class="edu-school">Herald College Kathmandu ~ affiliated with University of Wolverhampton, UK</div>
+          <div class="edu-meta">Jul 2019 – Apr 2022 · Grade: 3.9 / 4.0</div>
+          <span class="edu-badge">🏆 First Class Honors Degree</span>
         </div>
-    </section>
 
-    <script>
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-    </script>
+        <div class="edu-card">
+          <div class="edu-degree">+2 Science (High School)</div>
+          <div class="edu-school">JMC</div>
+          <div class="edu-meta">Sep 2017 – May 2019 · Grade: 3.85 / 4.0</div>
+          <span class="edu-badge">🏆 COLLEGE TOPPER</span>
+        </div>
+
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- CONTACT -->
+    <div id="contact" class="cmd">
+      <span class="prompt-user">roshan</span><span class="prompt-at">@</span><span class="prompt-host">portfolio</span><span class="prompt-at">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$</span>
+      <span class="prompt-cmd">cat contact.json</span>
+    </div>
+
+    <div class="output">
+      <div class="comment" style="margin-bottom:12px;">// Always open to discussing new projects, creative ideas, or opportunities.</div>
+      <div class="contact-grid">
+        <a class="contact-item" href="mailto:roshan.parajuly1@gmail.com">
+          <span class="contact-icon">✉</span>
+          <div><div class="contact-label">email</div><div class="contact-value">roshan.parajuly1@gmail.com</div></div>
+        </a>
+        <a class="contact-item" href="tel:+9779864022333">
+          <span class="contact-icon">#</span>
+          <div><div class="contact-label">phone</div><div class="contact-value">+977-9864022333</div></div>
+        </a>
+        <a class="contact-item" href="https://www.linkedin.com/in/rsnpj" target="_blank">
+          <span class="contact-icon">in</span>
+          <div><div class="contact-label">linkedin</div><div class="contact-value">linkedin.com/in/rsnpj</div></div>
+        </a>
+        <a class="contact-item" href="https://wa.me/9779864022333" target="_blank">
+          <span class="contact-icon">⌘</span>
+          <div><div class="contact-label">whatsapp</div><div class="contact-value">+977-9864022333</div></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-cmd">
+      <div class="cmd" style="margin-top:20px;">
+        <span class="prompt-user">roshan</span><span class="prompt-at">@</span><span class="prompt-host">portfolio</span><span class="prompt-at">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$</span>
+        <span class="cursor"></span>
+      </div>
+    </div>
+
+  </div><!-- /terminal-body -->
+</div><!-- /terminal-window -->
+
+<script>
+  const html = document.documentElement;
+  const icon = document.getElementById('themeIcon');
+  const label = document.getElementById('themeLabel');
+
+  const saved = localStorage.getItem('theme') || 'dark';
+  applyTheme(saved);
+
+  function applyTheme(theme) {
+    html.setAttribute('data-theme', theme);
+    icon.textContent = theme === 'dark' ? '🌙' : '☀️';
+    label.textContent = theme;
+    localStorage.setItem('theme', theme);
+  }
+
+  function toggleTheme() {
+    applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  }
+</script>
+
 </body>
-
 </html>
